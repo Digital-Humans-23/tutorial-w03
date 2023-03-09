@@ -67,7 +67,7 @@ dependencies.
   ```
 
 ### Compile on server
-- Build `pycrl.so` (python wrapper of pyloco C++ libraries)
+- Build `pycrl.so` (python wrapper of pycrl C++ libraries)
   ```sh
   $ mkdir build && cd build   
   $ env2lmod
