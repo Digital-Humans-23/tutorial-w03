@@ -22,9 +22,9 @@
   ```
 - Clone repo:
   ```sh
-  $ git clone git@github.com:Digital-Humans-23/tutorial-w03-YOURACCOUNT.git
+  $ git clone git@github.com:Digital-Humans-23/tutorial-w03.git
   # Navigate to repo folder
-  $ cd <Path to repo> # e.g: cd tutorial-w03-YOURACCOUNT 
+  $ cd <Path to repo> # e.g: cd tutorial-w03 
   # checkout gpu branch
   $ git checkout gpu
   ```
@@ -61,7 +61,7 @@
   # Navigate to home folder
   $ cd
   $ mkdir venvs && cd venvs
-  $ python3 -m venv simpleEnvGPU
+  $ python3 -m venv simpleEnvGpu
   $ source $HOME/venvs/simpleEnvGpu/bin/activate  
   # Update pip
   $ python3 -m pip install --upgrade pip
