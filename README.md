@@ -93,5 +93,26 @@
   ```
   It should print something like: 
   ```sh
-  TODO 
+  torch.cuda.is_available(): True
+  Using device: cuda
+  
+  torch.cuda.device_count(): 1
+  torch.cuda.current_device(): 0
+  torch.cuda.device(0): <torch.cuda.device object at 0x2b56cc2e32b0>
+  torch.cuda.get_device_name(0): NVIDIA GeForce RTX 2080 Ti
+  
+  Creating GPU variable
+  A: tensor([[0.1398, 0.0801, 0.7620,  ..., 0.9979, 0.8191, 0.1356],
+  [0.9617, 0.1811, 0.4770,  ..., 0.5575, 0.3186, 0.6578],
+  [0.6155, 0.6620, 0.4935,  ..., 0.9821, 0.9492, 0.9966],
+  ...,
+  [0.7402, 0.4816, 0.0675,  ..., 0.4227, 0.4904, 0.7470],
+  [0.9830, 0.7237, 0.2267,  ..., 0.5317, 0.0089, 0.0513],
+  [0.9697, 0.3609, 0.0698,  ..., 0.6418, 0.3757, 0.3971]],
+  device='cuda:0')
+  
+  Memory Usage:
+  Allocated: 0.4 GB
+  Cached:    0.4 GB
+  Done 
   ```
