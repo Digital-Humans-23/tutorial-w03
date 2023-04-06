@@ -1,6 +1,6 @@
 # Tutorial W03 - Settings things up
 
-## Getting started
+## Getting started (GPU version)
 ### Login to the cluster
   ```sh 
   $ ssh –Y USERNAME@euler.ethz.ch
@@ -23,75 +23,75 @@
 - Clone repo:
   ```sh
   $ git clone git@github.com:Digital-Humans-23/tutorial-w03-YOURACCOUNT.git
+  # Navigate to repo folder
+  $ cd <Path to repo> # e.g: cd tutorial-w03-YOURACCOUNT 
+  # checkout gpu branch
+  $ git checkout gpu
   ```
 
-### Installing conda (Linux / Cluster instructions):
-- Navigate to home folder
-  ```sh 
-  $ cd
-  ```
-- Download and run installer.
-  ```sh 
-  $ wget https://repo.anaconda.com/miniconda/Miniconda3-py39_23.1.0-1-Linux-x86_64.sh
-  $ chmod +x ./Miniconda3-py39_23.1.0-1-Linux-x86_64.sh
-  $ ./Miniconda3-py39_23.1.0-1-Linux-x86_64.sh
-  ```
-- Accept License terms.
-  ![alt text](./misc/01_accept_terms.png)
-- Press enter to accept default installation.
-  ![alt text](./misc/02_accept_default.png)
-- Allow installer to initialize Miniconda
-  ![alt text](./misc/03_allow_conda_init.png)
-
-- Disable activation of conda by default (Optional but recommended)
-  ```sh 
-  $ source .bashrc
-  $ conda config --set auto_activate_base false
-  ```
-
-- We start with [conda](https://docs.conda.io/en/latest/) to set up an environment with the minimum
-dependencies.
-  ```sh 
-  $ conda create --name simpleEnv python=3.9.2
-  $ conda activate simpleEnv 
-  ```
-
-- Navigate to path of repo folder e.g.
-  ```sh 
-  $ cd <PATH TO repo folder>
-  ```
-
-- Install requirements
-  ```sh 
-  $ pip install -r requirements.txt 
-  ```
-
-### Compile on server
-- Build `pycrl.so` (python wrapper of pycrl C++ libraries)
+### Check disk space
+- Check the amount of disk space available in your account using the command `lquota`. Your jobs will crash if you dont have enough disk space to write the log files to disk.
   ```sh
-  $ mkdir build && cd build   
-  $ env2lmod
-  $ module load gcc/8.2.0 python/3.9.9 cmake/3.25.0 freeglut/3.0.0 libxrandr/1.5.0  libxinerama/1.1.3 libxi/1.7.6  libxcursor/1.1.14 mesa/17.2.3 eth_proxy
-  # IMPORTANT: If you use a conda environment, you should add 
-  # -DPython_EXECUTABLE=<PYTHON INTERPRETER PATH>  (Use absolute paths) e.g.:
-  # cmake -DPython_EXECUTABLE=/cluster/home/mimora/miniconda3/envs/simpleEnv/bin/python3 -DCMAKE_BUILD_TYPE=Release ../
-  $ cmake -DPython_EXECUTABLE=/cluster/home/<YOUR_USERNAME>/miniconda3/envs/simpleEnv/bin/python3 -DCMAKE_BUILD_TYPE=Release ../
-  $ make 
-  # Return to repo folder
-  $ cd ..
+  $ lquota
   ```
+- The output should look something like this:
+  ```sh
+  +-----------------------------+-------------+------------------+------------------+------------------+
+  | Storage location:           | Quota type: | Used:            | Soft quota:      | Hard quota:      |
+  +-----------------------------+-------------+------------------+------------------+------------------+
+  | /cluster/home/mimora        | space       |          6.66 GB |         17.18 GB |         21.47 GB |
+  | /cluster/home/mimora        | files       |            16822 |           160000 |           200000 |
+  +-----------------------------+-------------+------------------+------------------+------------------+
+  | /cluster/shadow             | space       |               0B |          2.15 GB |          2.15 GB |
+  | /cluster/shadow             | files       |                3 |            50000 |            50000 |
+  +-----------------------------+-------------+------------------+------------------+------------------+
+  | /cluster/scratch/mimora     | space       |          4.10 kB |          2.50 TB |          2.70 TB |
+  | /cluster/scratch/mimora     | files       |                1 |          1000000 |          1500000 |
+  +-----------------------------+-------------+------------------+------------------+------------------+
+  ```
+
+### Setup virtual environment (Linux / Cluster instructions):
+- Load python3 for GPU
+  ```sh
+  $ env2lmod
+  $ module load gcc/8.2.0 python_gpu/3.10.4
+  ```
+- Create and source a virtual environment
+  ```sh
+  # Navigate to home folder
+  $ cd
+  $ mkdir venvs && cd venvs
+  $ python3 -m venv simpleEnvGPU
+  $ source $HOME/venvs/simpleEnvGpu/bin/activate  
+  # Update pip
+  $ python3 -m pip install --upgrade pip
+  ```
+- Install requirements
+  ```sh
+  # Navigate to repo folder
+  $ cd <Path to repo>  
+  $ pip3 install -r requirements.txt
 
 ### Run jobs on server
+
 - Run job
   ```sh
-  $ sbatch ./jobs/01_simple_job   
+  # Before you start a job, make sure to run the following two commands, every time you start a new ssh connection to Euler.
+  $ env2lmod
+  $ module load gcc/8.2.0 python/3.9.9
+  # Submit job
+  $ sbatch ./jobs/gpu_job   
   ```
 - Monitor job
   ```sh
   $ watch -n 1 squeue
   # Press Ctrl+C to stop monitoring the job 
   ```
-- Check that job was run successfully (It should print `Done` ) 
+- Check that job was run successfully 
   ```sh
-  $ cat ./jobs/simple_job.out    
+  $ cat ./jobs/gpu_job.out    
+  ```
+  It should print something like: 
+  ```sh
+  TODO 
   ```

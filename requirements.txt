@@ -1,9 +1,3 @@
-stable-baselines3==1.6.0
-scipy
-pylint
-ffmpeg-python
-moviepy
-ffmpeg
-tensorboard
-wandb
-pytest
+torch
+torchvision
+torchaudio
